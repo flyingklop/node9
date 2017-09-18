@@ -168,6 +168,12 @@ function init(argv)
     
     -- run any startup script
     local lasterr, l_errstr
+    local fd = connect("tcp!172.17.0.1!5555")
+    local ok = sys.mount(fd, nil, "/wmii", 0, nil)
+    
+    if ok < 0 and not quiet then
+        error("mount failed: " .. ok)
+    end
     
     -- REPL
     repeat 
